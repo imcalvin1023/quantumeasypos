@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <style>
+    /* 样式调整请在此处进行 */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .payment-container {
+      text-align: center;
+    }
+
+    .payment-method {
+      margin-bottom: 20px;
+    }
+
+    .payment-method button {
+      padding: 10px 20px;
+      background-color: #007bff; /* 蓝色 */
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <h2>支付</h2>
+    <p>应付金额：RM <?php echo $_GET['amount']; ?></p>
+    <div class="payment-method">
+      <button onclick="cashPayment()">现金支付</button>
+      <button onclick="qrCodePayment()">二维码支付</button>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript 代码请在此处进行
+    // 现金支付
+    function cashPayment() {
+      var amount = parseFloat(prompt("请输入支付金额：RM"));
+      var totalAmount = parseFloat("<?php echo $_GET['amount']; ?>");
+
+      if (isNaN(amount) || amount < totalAmount) {
+        alert("请输入有效的支付金额，金额不得低于应付金额：" + totalAmount.toFixed(2));
+        return;
+      }
+
+      var change = amount - totalAmount;
+      alert("找零：" + change.toFixed(2) + " RM");
+
+      // 返回至 checkout.html
+      window.location.href = "checkout.html";
+    }
+
+    // 二维码支付
+    function qrCodePayment() {
+      alert("请扫描二维码完成支付。");
+
+      // 返回至 checkout.html
+      window.location.href = "checkout.html";
+    }
+  </script>
+</body>
+</html>

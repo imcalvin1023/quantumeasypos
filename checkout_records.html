@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>结账</title>
+</head>
+<body>
+  <h1>订单记录</h1>
+  <ul id="orderList"></ul>
+
+  <script>
+    // 检查本地存储中是否有订单数据
+    var orders = localStorage.getItem('orders');
+    if (orders) {
+      // 如果有，则将订单数据解析为 JavaScript 对象
+      orders = JSON.parse(orders);
+      // 循环遍历订单数据，并将每个订单添加到页面中
+      orders.forEach(function(order, index) {
+        var listItem = document.createElement('li');
+        listItem.textContent = '订单 ' + (index + 1) + ': ' + order;
+        document.getElementById('orderList').appendChild(listItem);
+      });
+    } else {
+      // 如果没有订单数据，则显示提示信息
+      document.getElementById('orderList').innerHTML = '<li>没有订单记录。</li>';
+    }
+
+    // 模拟添加新订单的功能
+    var newOrder = '这是一个新订单';
+    // 将新订单添加到页面中
+    var newItem = document.createElement('li');
+    newItem.textContent = newOrder;
+    document.getElementById('orderList').appendChild(newItem);
+
+    // 将新订单保存到本地存储中
+    if (!orders) {
+      orders = [];
+    }
+    orders.push(newOrder);
+    localStorage.setItem('orders', JSON.stringify(orders));
+  </script>
+</body>
+</html>
